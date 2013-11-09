@@ -1,0 +1,11 @@
+p#notice=notice
+
+p
+  b Way:
+  = @car.way
+p
+  b Plate:
+  = @car.plate
+
+= link_to 'Edit', edit_car_path(@car)
+= link_to 'Back', cars_path

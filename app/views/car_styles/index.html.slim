@@ -1,0 +1,21 @@
+h1 Listing car_styles
+
+table
+  tr
+    th Style
+    th Seat
+    th
+    th
+    th
+
+  - @car_styles.each do |car_style|
+    tr
+      td= car_style.style
+      td= car_style.seat
+      td= link_to 'Show', car_style
+      td= link_to 'Edit', edit_car_style_path(car_style)
+      td= link_to 'Destroy', car_style, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+br
+
+= link_to 'New Car style', new_car_style_path

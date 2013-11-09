@@ -38,5 +38,6 @@ GpsTracking::Application.configure do
   }
   # Send email in development mode.
   config.action_mailer.perform_deliveries = true
+  Slim::Engine.default_options[:pretty] = true
 
 end

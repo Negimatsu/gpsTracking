@@ -1,0 +1,12 @@
+p#notice= notice
+
+p
+  b Style:
+  = @car_style.name
+p
+  b Seat:
+  = @car_style.seat
+
+= link_to 'Edit', edit_car_style_path(@car_style)
+
+= link_to 'Back', car_styles_path

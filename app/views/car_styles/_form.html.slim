@@ -1,0 +1,9 @@
+= simple_form_for(@car_style) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :seat
+
+  .form-actions
+    = f.button :submit

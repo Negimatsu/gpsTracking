@@ -1,0 +1,11 @@
+= simple_form_for(@car) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :way
+    = f.input :plate
+    = f.input :gps_name
+    = f.association :car_style, as: :select
+
+  .form-actions
+    = f.button :submit
