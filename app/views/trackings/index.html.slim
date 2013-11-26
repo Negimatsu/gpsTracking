@@ -1,0 +1,23 @@
+h1 Listing trackings
+
+table
+  tr
+    th Lat
+    th Long
+    th Car
+    th
+    th
+    th
+
+  - @trackings.each do |tracking|
+    tr
+      td= tracking.lat
+      td= tracking.long
+      td= tracking.car_id
+      td= link_to 'Show', tracking
+      td= link_to 'Edit', edit_tracking_path(tracking)
+      td= link_to 'Destroy', tracking, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+br
+
+= link_to 'New Tracking', new_tracking_path

@@ -23,3 +23,4 @@ puts 'style: ' << style.name
 
 puts 'Create Car'
 car = Car.find_or_create_by_gps_name :way => 4, :plate => "1234", :gps_name => "gps1", :car_style_id => style.id
+

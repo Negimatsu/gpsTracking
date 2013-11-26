@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Lat:
+  = @tracking.lat
+%p
+  %b Long:
+  = @tracking.long
+%p
+  %b Car:
+  = @tracking.car_id
+
+= link_to 'Edit', edit_tracking_path(@tracking)
+\|
+= link_to 'Back', trackings_path

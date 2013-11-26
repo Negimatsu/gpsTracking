@@ -10,7 +10,7 @@ table
 
   - @car_styles.each do |car_style|
     tr
-      td= car_style.style
+      td= car_style.name
       td= car_style.seat
       td= link_to 'Show', car_style
       td= link_to 'Edit', edit_car_style_path(car_style)

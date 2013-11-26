@@ -1,5 +1,11 @@
 GpsTracking::Application.routes.draw do
 
+  resources :lines
+
+  resources :stations
+
+  resources :locations
+
   resources :car_styles
   resources :cars
   root :to => "home#index"

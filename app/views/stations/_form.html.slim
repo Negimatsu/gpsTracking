@@ -1,0 +1,14 @@
+= simple_form_for(@station) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :lat
+    = f.input :lng
+    = f.input :station
+    = f.input :nextStation
+    = f.association :line1, :label_method => lambda { |p| "lat1 : #{p.lat1} - lng1 :#{p.lng1} || lat2 : #{p.lat2} - lng2 :#{p.lng2}" }, value_method: :id, include_blank: false
+    = f.association :line2, :label_method => lambda { |p| "lat1 : #{p.lat1} - lng1 :#{p.lng1} || lat2 : #{p.lat2} - lng2 :#{p.lng2}" }, value_method: :id, include_blank: false
+
+  .form-actions
+    = f.button :submit

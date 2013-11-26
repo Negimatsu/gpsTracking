@@ -1,0 +1,11 @@
+= simple_form_for(@line) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :lat1
+    = f.input :lng1
+    = f.input :lat2
+    = f.input :lng2
+
+  .form-actions
+    = f.button :submit

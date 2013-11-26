@@ -1,0 +1,21 @@
+p#notice= notice
+
+p
+  b Name:
+  = @station.name
+p
+  b Lat:
+  = @station.lat
+p
+  b Lng:
+  = @station.lng
+p
+  b Station:
+  = @station.station
+p
+  b Nextstation:
+  = @station.nextStation
+
+= link_to 'Edit', edit_station_path(@station)
+
+= link_to 'Back', stations_path

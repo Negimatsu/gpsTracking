@@ -1,15 +1,24 @@
-= link_to "Home", root_path, :class => 'brand'
-ul.nav
+ul.nav.right
   - if user_signed_in?
     li
       = link_to 'Logout', destroy_user_session_path, :method=>'delete'
   - else
     li
-      = link_to 'Car', new_car_path
-    li
-      = link_to 'Style', new_car_style_path
+      = link_to 'Home', root_path
+    li.has-dropdown.not-click
+      = link_to 'Data'
+      ul.dropdown
+        li
+          = link_to 'Car', cars_path
+        li
+          = link_to 'Style', car_styles_path
+        li
+          = link_to 'Stations', stations_path
+        li
+          = link_to 'Line', lines_path
     li
       = link_to 'Login', new_user_session_path
+
   - if user_signed_in?
     li
       = link_to 'Edit account', edit_user_registration_path

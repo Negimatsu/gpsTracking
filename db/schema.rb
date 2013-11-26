@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131109160804) do
+ActiveRecord::Schema.define(version: 20131122200934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20131109160804) do
     t.datetime "updated_at"
   end
 
+  create_table "lines", force: true do |t|
+    t.string   "lat1"
+    t.string   "lng1"
+    t.string   "lat2"
+    t.string   "lng2"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -42,6 +51,18 @@ ActiveRecord::Schema.define(version: 20131109160804) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "stations", force: true do |t|
+    t.string   "name"
+    t.string   "lat"
+    t.string   "lng"
+    t.integer  "station"
+    t.integer  "nextStation"
+    t.integer  "line1_id"
+    t.integer  "line2_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "trackings", force: true do |t|
     t.string   "lat"
