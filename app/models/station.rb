@@ -4,6 +4,14 @@ class Station < ActiveRecord::Base
     "markers=color:green%7Clabel:#{station}%7C#{lat},#{lng}"
   end
 
+  def to_p_maps
+    self.to_api + "&"+
+    "markers=color:blue%7Clabel:#{station}%7C#{x1},#{y1}&" +
+    "markers=color:blue%7Clabel:#{station}%7C#{x2},#{y2}&" +
+    "markers=color:blue%7Clabel:#{station}%7C#{x3},#{y3}&" +
+    "markers=color:blue%7Clabel:#{station}%7C#{x4},#{y4}&"
+  end
+
   def in_station? x1,y1,x2,y2,x3,y3,x4,y4,px,py
     a1 = Math.sqrt(((x1-x2)**2 + (y1-y2)**2))
     a2 = Math.sqrt(((x2-x3)**2 + (y2-y3)**2))

@@ -1,6 +1,7 @@
 class StationsController < ApplicationController
   before_action :set_station, only: [:show, :edit, :update, :destroy]
 
+  helper :stations
   # GET /stations
   # GET /stations.json
   def index
@@ -59,6 +60,14 @@ class StationsController < ApplicationController
       format.html { redirect_to stations_url }
       format.json { head :no_content }
     end
+  end
+
+  def show_maps
+    set_station
+  end
+
+  def maps
+    @stations = Station.all
   end
 
   private

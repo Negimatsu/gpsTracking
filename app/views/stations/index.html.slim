@@ -7,37 +7,41 @@ table
     th Lng
     th Station
     th Nextstation
-    th x1
-    th y1
-    th x2
-    th y2
-    th x3
-    th y3
-    th x4
-    th y4
+    th Point
+    th 1
+    th 2
+    th 3
+    th 4
+    th Maps
     th
     th
 
   - @stations.each do |station|
     tr
-      td= station.name
-      td= station.lat
-      td= station.lng
-      td= station.station
-      td= station.nextStation
+      td(rowspan="2")= station.name
+      td(rowspan="2")= station.lat
+      td(rowspan="2")= station.lng
+      td(rowspan="2")= station.station
+      td(rowspan="2")= station.nextStation
+      td x
       td= station.x1
-      td= station.y1
       td= station.x2
-      td= station.y2
       td= station.x3
-      td= station.y3
       td= station.x4
+
+      td(rowspan="2")= link_to 'Map', maps_station_path(station)
+      td(rowspan="2")= link_to 'Show', station
+      td(rowspan="2")= link_to 'Edit', edit_station_path(station)
+      td(rowspan="2")= link_to 'Destroy', station, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    tr
+      td y
+      td= station.y1
+      td= station.y2
+      td= station.y3
       td= station.y4
 
-      td= link_to 'Show', station
-      td= link_to 'Edit', edit_station_path(station)
-      td= link_to 'Destroy', station, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
 br
-
 = link_to 'New Station', new_station_path
+br
+= link_to 'Maps all', maps_path, :class => "button"
+
