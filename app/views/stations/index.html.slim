@@ -7,7 +7,14 @@ table
     th Lng
     th Station
     th Nextstation
-    th
+    th x1
+    th y1
+    th x2
+    th y2
+    th x3
+    th y3
+    th x4
+    th y4
     th
     th
 
@@ -18,6 +25,15 @@ table
       td= station.lng
       td= station.station
       td= station.nextStation
+      td= station.x1
+      td= station.y1
+      td= station.x2
+      td= station.y2
+      td= station.x3
+      td= station.y3
+      td= station.x4
+      td= station.y4
+
       td= link_to 'Show', station
       td= link_to 'Edit', edit_station_path(station)
       td= link_to 'Destroy', station, :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -7,8 +7,15 @@
     = f.input :lng
     = f.input :station
     = f.input :nextStation
-    = f.association :line1, :label_method => lambda { |p| "lat1 : #{p.lat1} - lng1 :#{p.lng1} || lat2 : #{p.lat2} - lng2 :#{p.lng2}" }, value_method: :id, include_blank: false
-    = f.association :line2, :label_method => lambda { |p| "lat1 : #{p.lat1} - lng1 :#{p.lng1} || lat2 : #{p.lat2} - lng2 :#{p.lng2}" }, value_method: :id, include_blank: false
+  .row
+    .large-6.columns = f.input :x1
+    .large-6.columns = f.input :y1
+    .large-6.columns = f.input :x2
+    .large-6.columns = f.input :y2
+    .large-6.columns = f.input :x3
+    .large-6.columns = f.input :y3
+    .large-6.columns = f.input :x4
+    .large-6.columns = f.input :y4
 
   .form-actions
     = f.button :submit

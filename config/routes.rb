@@ -1,7 +1,5 @@
 GpsTracking::Application.routes.draw do
 
-  resources :lines
-
   resources :stations
 
   resources :locations

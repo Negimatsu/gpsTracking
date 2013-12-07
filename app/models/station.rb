@@ -1,9 +1,5 @@
 class Station < ActiveRecord::Base
 
-  belongs_to :line1, class_name: "Line", foreign_key: :line1_id
-  belongs_to :line2, class_name: "Line", foreign_key: :line2_id
-
-
   def to_api
     "markers=color:green%7Clabel:#{station}%7C#{lat},#{lng}"
   end

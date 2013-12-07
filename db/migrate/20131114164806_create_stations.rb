@@ -6,8 +6,15 @@ class CreateStations < ActiveRecord::Migration
       t.string :lng
       t.integer :station
       t.integer :nextStation
-      t.integer :line1_id
-      t.integer :line2_id
+      t.string  :x1
+      t.string  :y1
+      t.string  :x2
+      t.string  :y2
+      t.string  :x3
+      t.string  :y3
+      t.string  :x4
+      t.string  :y4
+
 
       t.timestamps
     end
