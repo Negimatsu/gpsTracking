@@ -82,7 +82,7 @@ GpsTracking::Application.configure do
     password: ENV["GMAIL_PASSWORD"]
   }
 
-
+  config.serve_static_assets = true
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
 
