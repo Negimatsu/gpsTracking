@@ -20,7 +20,7 @@ class Station < ActiveRecord::Base
 
 
   def to_api
-    "markers=color:green%7Clabel:#{(station+65).chr}%7C#{lat},#{lng}"
+    "markers=color:green%7Clabel:#{(station+64).chr}%7C#{lat},#{lng}"
   end
 
   def to_p_maps

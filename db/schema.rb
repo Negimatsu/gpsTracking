@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131210053306) do
+ActiveRecord::Schema.define(version: 20131114164806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,25 +45,25 @@ ActiveRecord::Schema.define(version: 20131210053306) do
 
   create_table "stations", force: true do |t|
     t.string   "name"
-    t.string   "lat"
-    t.string   "lng"
+    t.float    "lat"
+    t.float    "lng"
     t.integer  "station"
     t.integer  "nextStation"
-    t.text     "x1"
-    t.string   "y1"
-    t.string   "x2"
-    t.string   "y2"
-    t.string   "x3"
-    t.string   "y3"
-    t.string   "x4"
-    t.string   "y4"
+    t.float    "x1"
+    t.float    "y1"
+    t.float    "x2"
+    t.float    "y2"
+    t.float    "x3"
+    t.float    "y3"
+    t.float    "x4"
+    t.float    "y4"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "trackings", force: true do |t|
-    t.string   "lat"
-    t.string   "long"
+    t.float    "lat"
+    t.float    "long"
     t.integer  "car_id"
     t.datetime "created_at"
     t.datetime "updated_at"

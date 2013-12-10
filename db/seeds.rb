@@ -25,6 +25,7 @@ puts 'Create Car'
 car = Car.find_or_create_by_gps_name :way => 4, :plate => "1234", :gps_name => "gps1", :car_style_id => style.id
 
 puts 'Create Station'
+
 Station.create!([
                     {name: "1", lat: "13.842153", lng: "100.5763", station: 1, nextStation: 2, x1: "13.841877", y1: "100.576558", x2: "13.842545", y2: "100.576781", x3: "13.842727", y3: "100.574429", x4: "13.842045", y4: "100.574364"},
                     {name: "2", lat: "13.842473", lng: "100.572913", station: 2, nextStation: 3, x1: "13.842045", y1: "100.574364", x2: "13.842727", y2: "100.574429", x3: "13.842883", y3: "100.572268", x4: "13.84225", y4: "100.571542"},
