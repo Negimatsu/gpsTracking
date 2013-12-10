@@ -3,19 +3,19 @@
 
   .form-inputs
     = f.input :name
-    = f.input :lat
-    = f.input :lng
+    = f.input :lat, as: :string
+    = f.input :lng, as: :string
     = f.input :station
     = f.input :nextStation
   .row
-    .large-6.columns = f.input :x1
-    .large-6.columns = f.input :y1
-    .large-6.columns = f.input :x2
-    .large-6.columns = f.input :y2
-    .large-6.columns = f.input :x3
-    .large-6.columns = f.input :y3
-    .large-6.columns = f.input :x4
-    .large-6.columns = f.input :y4
+    .large-6.columns = f.input :x1, as: :string
+    .large-6.columns = f.input :y1, as: :string
+    .large-6.columns = f.input :x2, as: :string
+    .large-6.columns = f.input :y2, as: :string
+    .large-6.columns = f.input :x3, as: :string
+    .large-6.columns = f.input :y3, as: :string
+    .large-6.columns = f.input :x4, as: :string
+    .large-6.columns = f.input :y4, as: :string
 
   .form-actions
     = f.button :submit
