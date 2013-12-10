@@ -2,18 +2,18 @@ class CreateStations < ActiveRecord::Migration
   def change
     create_table :stations do |t|
       t.string :name
-      t.string :lat
-      t.string :lng
+      t.float :lat
+      t.float :lng
       t.integer :station
       t.integer :nextStation
-      t.string  :x1
-      t.string  :y1
-      t.string  :x2
-      t.string  :y2
-      t.string  :x3
-      t.string  :y3
-      t.string  :x4
-      t.string  :y4
+      t.float  :x1
+      t.float  :y1
+      t.float  :x2
+      t.float  :y2
+      t.float  :x3
+      t.float  :y3
+      t.float  :x4
+      t.float  :y4
 
 
       t.timestamps
