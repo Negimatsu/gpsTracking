@@ -1,0 +1,20 @@
+function initialize() {
+
+    var mapOptions = {
+        center: kasetsart,
+        zoom: 16,
+        scale: 3,
+        disableDefaultUI: true,
+        panControl: false,
+        zoomControl: false,
+        scaleControl: false
+    };
+
+    map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+    setMarkers(map, stations);
+//    detectBrowser();
+
+    google.maps.event.addListener(marker, 'click', toggleBounce);
+}

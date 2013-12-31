@@ -1,3 +1,16 @@
-h3 Home
-= image_tag get_maps_all
+/= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyB5OXjn4qzTznCTP0L4nakhtDSD4xO-uj0&sensor=true"
+= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=true"
+= javascript_include_tag "home"
 
+h3 Home
+/= image_tag get_maps_all
+
+/- @stations.each do |s|
+/   /p #{s.in_station? s.lat, s.lng}
+/   p = s.in_station? @tracking.lat, @tracking.long
+row
+
+  #map-canvas.small-6.large-centered.columns
+/= render :partial => 'home/maps', :locals => { :stations => @stations }
+
+#test

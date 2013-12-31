@@ -15,6 +15,9 @@ p
 p
   b Nextstation:
   = @station.nextStation
+p
+  b Picture
+  = image_tag(@station.station_pic_url) if @station.station_pic?
 
 = link_to 'Edit', edit_station_path(@station)
 

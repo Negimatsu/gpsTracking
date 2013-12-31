@@ -1,4 +1,7 @@
 class Station < ActiveRecord::Base
+  mount_uploader :station_pic, StationPicUploader
+
+  has_many :trackings
 
   def in_station? px,py
     x = [self.x1, self.x2, self.x3, self.x4]
@@ -15,7 +18,6 @@ class Station < ActiveRecord::Base
     diff = (area_rec - sum_tri).abs
 
     return diff < 10**-10 #if in area is true
-
   end
 
 

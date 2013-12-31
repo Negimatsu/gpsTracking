@@ -5,6 +5,9 @@
     = f.input :name
     = f.input :lat, as: :string
     = f.input :lng, as: :string
+    = image_tag(@station.station_pic_url) if @station.station_pic?
+    = f.file_field :station_pic
+    = f.hidden_field :station_pic_cache
     = f.input :station
     = f.input :nextStation
   .row
