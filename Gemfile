@@ -20,8 +20,7 @@ gem 'zurb-foundation'
 gem 'seed_dump'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'underscore-rails'
-gem 'gmaps4rails'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
