@@ -6,7 +6,7 @@ var currentMarker = null;
 var map;
 //
 
-function setStationsMarker(map){
+function setStationsMarker(map, current_station, next_station){
 
     $.ajax({
         url: "/data/data_stations",
@@ -15,23 +15,11 @@ function setStationsMarker(map){
             console.log(data);
             $.each( data, function( index, st ){
                 var myLatLng = new google.maps.LatLng(st.lat, st.lng);
-
-                if(st.station_pic.thumb.url != null){
-                    var image = { url: st.station_pic.thumb.url,
-                        size: new google.maps.Size(20, 32),
-                        // The origin for this image is 0,0.
-                        origin: new google.maps.Point(0,0),
-                        // The anchor for this image is the base of the flagpole at 0,32.
-                        anchor: new google.maps.Point(0, 32)
-                        };
-                }
-
                 var marker = new google.maps.Marker({
                     map: map,
                     position: myLatLng,
                     title: st.name,
-                    zIndex: st.station,
-                    icon: image,
+                    zIndex: st.id,
                     animation: google.maps.Animation.DROP
                 });
                 markers.push(marker);
@@ -42,8 +30,32 @@ function setStationsMarker(map){
             console.trace();
         }
     });
-
 }
+
+function setIconMarkerStation(current_station, next_station){
+
+    $.each( markers, function( index, station ){
+        $.ajax({
+            type: "GET",
+            url: "/stations/json/" + station.zIndex,
+            dataType: "json",
+            success: function(data){
+                if(current_station == station.zIndex){
+                    var image = getImageIcon(data.station_current_pic.thumb.url);
+                }
+                else if(next_station.indexOf(station.zIndex) > -1){
+                    console.log("zz"+data.station_next_pic.thumb.url);
+                    var image = getImageIcon(data.station_next_pic.thumb.url);
+                }else{
+                    var image = getImageIcon(data.station_normal_pic.thumb.url);
+                }
+                station.setIcon(image);
+            }
+        });
+
+    });
+}
+
 
 function setCurrentMarker(map){
 
@@ -52,12 +64,15 @@ function setCurrentMarker(map){
 
         success: function( data ) {
             var myLatLng = new google.maps.LatLng(data.lat, data.long);
-//            console.log(data);
+
             if (currentMarker) {
                 // Marker already created - Move it
-              currentMarker.setPosition(myLatLng);
+                currentMarker.setPosition(myLatLng);
+                console.log("yyy",getNextStation());
+                setIconMarkerStation(data.station_id, getNextStation());
+
             }else{
-               currentMarker = new google.maps.Marker({
+                currentMarker = new google.maps.Marker({
                     map: map,
                     position: myLatLng,
                     title: "current",
@@ -70,11 +85,19 @@ function setCurrentMarker(map){
             console.trace();
         }
     });
-
     // Call the autoUpdate() function every 5 seconds
     setInterval(setCurrentMarker, 3000);
 }
+function getNextStation(){
+    $.ajax({
+        url: "/api/track/next_station",
 
+        success: function(data){
+           data_next = data;
+        }
+    });
+    return data_next;
+}
 function toggleBounce() {
 
     if (marker.getAnimation() != null) {
@@ -113,7 +136,6 @@ function detectBrowser() {
 
 var mapOptions;
 function initialize() {
-
     mapOptions = {
         center: kasetsart,
         zoom: 16,
@@ -126,7 +148,6 @@ function initialize() {
         zoomControl: false,
         scaleControl: false
     };
-
     detectBrowser();
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     setMarker(map);
@@ -139,7 +160,6 @@ function setMarker(map){
     setAllMap(map) ;
 }
 
-
 // Sets the map on all markers in the array.
 function setAllMap(map) {
     for (var i = 0; i < markers.length; i++) {
@@ -150,4 +170,18 @@ function setAllMap(map) {
 // Removes the markers from the map, but keeps them in the array.
 function clearMarkers() {
     setAllMap(null);
+}
+
+function getImageIcon(url){
+    if (url == null){
+        return null
+    }else{
+        var image = {
+            url: url,
+            size: new google.maps.Size(20, 32),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(0, 32)
+        }
+        return image;
+    }
 }

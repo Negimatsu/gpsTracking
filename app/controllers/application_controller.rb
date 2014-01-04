@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_before_action :verify_authenticity_token, if: :json_request?
 
+
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_path, :alert => exception.message
   end
@@ -11,5 +13,18 @@ class ApplicationController < ActionController::Base
   def json_request?
     request.format.json?
   end
+
+  def before_station number = Tracking.last.station_id
+
+    dec_tracking = Tracking.order(id: :desc)
+    dec_tracking.each do |tracked|
+      if (tracked.station_id != number) && (not tracked.station_id.nil?)
+        return tracked.station_id
+      end
+    end
+
+    1
+  end
+
 
 end
