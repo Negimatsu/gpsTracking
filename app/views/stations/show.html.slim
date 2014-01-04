@@ -16,8 +16,12 @@ p
   b Nextstation:
   = @station.nextStation
 p
-  b Picture
-  = image_tag(@station.station_pic_url) if @station.station_pic?
+  b Picture normal
+  = image_tag(@station.station_normal_pic.thumb.url) if @station.station_normal_pic.thumb.url
+  b Picture current
+  = image_tag(@station.station_current_pic.thumb.url) if @station.station_current_pic.thumb.url
+  b Picture next
+  = image_tag(@station.station_next_pic.thumb.url) if @station.station_next_pic.thumb.url
 
 = link_to 'Edit', edit_station_path(@station)
 

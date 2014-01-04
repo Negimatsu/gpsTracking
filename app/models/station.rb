@@ -1,5 +1,7 @@
 class Station < ActiveRecord::Base
-  mount_uploader :station_pic, StationPicUploader
+  mount_uploader :station_current_pic, StationPicUploader
+  mount_uploader :station_next_pic, StationPicUploader
+  mount_uploader :station_normal_pic, StationPicUploader
 
   has_many :trackings
 

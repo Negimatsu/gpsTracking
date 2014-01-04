@@ -1,5 +1,5 @@
 class StationsController < ApplicationController
-  before_action :set_station, only: [:show, :edit, :update, :destroy] , except: [:data_maps]
+  before_action :set_station, only: [:show, :edit, :update, :destroy, :show_json] , except: [:data_maps]
 
   helper :stations
 
@@ -12,6 +12,10 @@ class StationsController < ApplicationController
   # GET /stations/1
   # GET /stations/1.json
   def show
+  end
+
+  def show_json
+    render json: @station
   end
 
   # GET /stations/new
@@ -80,6 +84,6 @@ class StationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def station_params
-      params.require(:station).permit(:name, :lat, :lng, :station, :nextStation, :x1, :y1, :x2, :y2, :x3, :y3, :x4, :y4, :station_pic)
+      params.require(:station).permit(:name, :lat, :lng, :station, :nextStation, :x1, :y1, :x2, :y2, :x3, :y3, :x4, :y4, :station_normal_pic, :station_current_pic, :station_next_pic)
     end
 end

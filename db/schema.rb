@@ -59,7 +59,9 @@ ActiveRecord::Schema.define(version: 20131228141613) do
     t.float    "y4"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "station_pic"
+    t.string   "station_current_pic"
+    t.string   "station_next_pic"
+    t.string   "station_normal_pic"
   end
 
   create_table "trackings", force: true do |t|

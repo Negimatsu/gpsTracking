@@ -5,9 +5,14 @@
     = f.input :name
     = f.input :lat, as: :string
     = f.input :lng, as: :string
-    = image_tag(@station.station_pic_url) if @station.station_pic?
-    = f.file_field :station_pic
-    = f.hidden_field :station_pic_cache
+
+    = f.input :station_normal_pic, as: :file , label: "Normal Picture"
+    = f.hidden_field :station_normal_pic_cache
+    = f.input :station_current_pic, as: :file, label: "Current Picture"
+    = f.hidden_field :station_current_pic_cache
+    = f.input :station_next_pic, as: :file, label: "Next Picture"
+    = f.hidden_field  :station_next_pic_cache
+
     = f.input :station
     = f.input :nextStation
   .row
