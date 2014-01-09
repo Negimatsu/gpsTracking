@@ -15,14 +15,24 @@ p
 p
   b Nextstation:
   = @station.nextStation
-p
-  b Picture normal
-  = image_tag(@station.station_normal_pic.thumb.url) if @station.station_normal_pic.thumb.url
-  b Picture current
-  = image_tag(@station.station_current_pic.thumb.url) if @station.station_current_pic.thumb.url
-  b Picture next
-  = image_tag(@station.station_next_pic.thumb.url) if @station.station_next_pic.thumb.url
 
+
+- if @station.station_normal_pic.thumb.url and @station.station_current_pic.thumb.url and @station.station_next_pic.thumb.url
+  ul.example-orbit data-orbit=""
+    li
+      = image_tag(@station.station_normal_pic.url) if @station.station_normal_pic.thumb.url
+      .orbit-caption Picture normal
+    li
+      = image_tag(@station.station_current_pic.url) if @station.station_current_pic.thumb.url
+      .orbit-caption Picture Current
+    li
+      = image_tag(@station.station_next_pic.url) if @station.station_next_pic.thumb.url
+      .orbit-caption Picture next
+-else
+  b Picture
+  | None or not complete
+br
+br
 = link_to 'Edit', edit_station_path(@station)
 
 = link_to 'Back', stations_path

@@ -242,7 +242,7 @@ DEPENDENCIES
   capybara
   carrierwave
   coffee-rails (~> 4.0.0)
-  compass-rails (~> 1.1.2)
+  compass-rails
   cucumber-rails
   database_cleaner (= 1.0.1)
   devise

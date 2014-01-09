@@ -8,11 +8,11 @@ ul.nav.right
     li.has-dropdown.not-click
       = link_to 'Data'
       ul.dropdown
-        li
+        li.divider
           = link_to 'Car', cars_path
-        li
+        li.divider
           = link_to 'Style', car_styles_path
-        li
+        li.divider
           = link_to 'Stations', stations_path
     li
       = link_to 'Login', new_user_session_path
