@@ -6,7 +6,7 @@ var currentMarker = null;
 var map;
 //
 
-function setStationsMarker(map, current_station, next_station){
+function setStationsMarker(map){
 
     $.ajax({
         url: "/data/data_stations",
@@ -44,7 +44,7 @@ function setIconMarkerStation(current_station, next_station){
                     var image = getImageIcon(data.station_current_pic.thumb.url);
                 }
                 else if(next_station.indexOf(station.zIndex) > -1){
-                    console.log("zz"+data.station_next_pic.thumb.url);
+
                     var image = getImageIcon(data.station_next_pic.thumb.url);
                 }else{
                     var image = getImageIcon(data.station_normal_pic.thumb.url);
