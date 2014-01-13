@@ -16,7 +16,7 @@ gem 'rolify'
 gem 'simple_form'
 gem 'slim'
 gem 'therubyracer', :platform=>:ruby
-gem 'zurb-foundation'
+gem 'foundation-rails'
 gem 'seed_dump'
 gem 'carrierwave'
 gem 'mini_magick'
