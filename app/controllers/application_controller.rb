@@ -20,7 +20,10 @@ class ApplicationController < ActionController::Base
     dec_tracking.each do |tracked|
       if (tracked.station_id != number) && (not tracked.station_id.nil?)
         return tracked.station_id
+      elsif tracked.station_id.nil?
+        return 0
       end
+
     end
 
     1

@@ -6,10 +6,15 @@
     = f.input :lat, as: :string
     = f.input :lng, as: :string
 
+    = image_tag(@station.station_normal_pic.thumb) if @station.station_normal_pic
     = f.input :station_normal_pic, as: :file , label: "Normal Picture"
     = f.hidden_field :station_normal_pic_cache
+
+    = image_tag(@station.station_current_pic.thumb) if @station.station_current_pic
     = f.input :station_current_pic, as: :file, label: "Current Picture"
     = f.hidden_field :station_current_pic_cache
+
+    = image_tag(@station.station_next_pic.thumb) if @station.station_next_pic
     = f.input :station_next_pic, as: :file, label: "Next Picture"
     = f.hidden_field  :station_next_pic_cache
 

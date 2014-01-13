@@ -1,9 +1,9 @@
 // Global Variable
 var markers = [];
-var kasetsart = new google.maps.LatLng(13.8480, 100.5730);
+//var kasetsart = google.maps.LatLng(13.8480, 100.5730);
 var marker;
 var currentMarker = null;
-var map;
+//var map;
 //
 
 function setStationsMarker(map){
@@ -44,8 +44,8 @@ function setIconMarkerStation(current_station, next_station){
                     var image = getImageIcon(data.station_current_pic.thumb.url);
                 }
                 else if(next_station.indexOf(station.zIndex) > -1){
-
                     var image = getImageIcon(data.station_next_pic.thumb.url);
+                    console.log(image);
                 }else{
                     var image = getImageIcon(data.station_normal_pic.thumb.url);
                 }
@@ -68,8 +68,16 @@ function setCurrentMarker(map){
             if (currentMarker) {
                 // Marker already created - Move it
                 currentMarker.setPosition(myLatLng);
-                console.log("yyy",getNextStation());
-                setIconMarkerStation(data.station_id, getNextStation());
+
+                $.ajax({
+                    url: "/api/track/next_station",
+
+                    success: function(station_next){
+                        console.log("yyy",station_next);
+                        setIconMarkerStation(data.station_id, station_next);
+                    }
+                });
+
 
             }else{
                 currentMarker = new google.maps.Marker({
@@ -86,18 +94,13 @@ function setCurrentMarker(map){
         }
     });
     // Call the autoUpdate() function every 5 seconds
-    setInterval(setCurrentMarker, 3000);
 }
-function getNextStation(){
-    $.ajax({
-        url: "/api/track/next_station",
 
-        success: function(data){
-           data_next = data;
-        }
-    });
-    return data_next;
+function recursive_data(map){
+    setCurrentMarker(map);
+    setInterval(setCurrentMarker, 5000);
 }
+
 function toggleBounce() {
 
     if (marker.getAnimation() != null) {
@@ -106,9 +109,6 @@ function toggleBounce() {
         marker.setAnimation(google.maps.Animation.BOUNCE);
     }
 }
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
 
 function detectBrowser() {
     var useragent = navigator.userAgent;
@@ -119,7 +119,7 @@ function detectBrowser() {
         mapdiv.style.height = '90%';
 
         mapOptions = {
-            center: kasetsart,
+            center: new google.maps.LatLng(13.8480, 100.5730),
             zoom: 15,
             scale: 5,
             disableDefaultUI: false ,
@@ -134,22 +134,29 @@ function detectBrowser() {
     }
 }
 
+
+google.maps.event.addDomListener(window, 'load', init);
 var mapOptions;
-function initialize() {
+function init() {
     mapOptions = {
-        center: kasetsart,
+        center: new google.maps.LatLng(13.8480, 100.5730),
         zoom: 16,
         scale: 4,
         disableDefaultUI: false,
         disableDoubleClickZoom: true,
-        scrollwheel:false,
+        keyboardShortcuts:false,
         draggable: false,
         panControl: false,
         zoomControl: false,
         scaleControl: false
     };
     detectBrowser();
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    var mapElement = document.getElementById('map-canvas');
+
+    // Create the Google Map using out element and options defined above
+    var map = new google.maps.Map(mapElement, mapOptions);
+
+//    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     setMarker(map);
     google.maps.event.addListener(marker, 'click', toggleBounce);
 }
@@ -157,7 +164,9 @@ function initialize() {
 function setMarker(map){
     setStationsMarker(map)
     setCurrentMarker(map);
+    recursive_data(map);
     setAllMap(map) ;
+
 }
 
 // Sets the map on all markers in the array.
@@ -185,3 +194,4 @@ function getImageIcon(url){
         return image;
     }
 }
+

@@ -1,5 +1,5 @@
 /= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyB5OXjn4qzTznCTP0L4nakhtDSD4xO-uj0&sensor=true"
-= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=true"
+= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyB5OXjn4qzTznCTP0L4nakhtDSD4xO-uj0&sensor=true&v=3 "
 = javascript_include_tag "home"
 
 h3 Home
@@ -11,6 +11,7 @@ h3 Home
 row
 
   #map-canvas.small-6.large-centered.columns
+/
 /= render :partial => 'home/maps', :locals => { :stations => @stations }
 
 #test

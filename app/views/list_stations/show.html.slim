@@ -1,0 +1,12 @@
+p#notice= notice
+
+p
+  b List number:
+  = @list_station.list_number
+p
+  b Station:
+  = @list_station.station_id
+
+= link_to 'Edit', edit_list_station_path(@list_station)
+
+= link_to 'Back', list_stations_path

@@ -1,0 +1,9 @@
+= simple_form_for(@list_station) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :list_number
+    = f.association :station
+
+  .form-actions
+    = f.button :submit

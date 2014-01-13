@@ -64,19 +64,24 @@ class TrackingsController < ApplicationController
   end
 
   def next_station
-    way = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,[3,2]]
-    before = before_station
-    current_station = Tracking.last
-    curr = current_station.station_id
-    cur_index = way.index(curr)
-    before_before_index = way.index(before_station before)
-    before_index = way.index(before)
-    p cur_index.to_s+"xxxxxxxxxx"
-    p before_index.to_s+"###########"
+    before_id = before_station
+    current_station_id = Tracking.last.station_id
+    p before_id
+    p "xxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+    p cur_index = (ListStation.find_by_station_id current_station_id).list_number
+    p before_index = before_id != 0 ? (ListStation.find_by_station_id(before_id)).list_number : 1
+    p "yyyy"
+    p before_before_index = before_id != 0 ? (ListStation.find_by_station_id(before_station before_id)).list_number : 1
+
+    result = []
     if cur_index < before_before_index
-      result = way.first
+      result = ListStation.first.station_id
     else
-      result = way.at(cur_index+1)
+      (ListStation.find_all_by_list_number(cur_index + 1)).each do |i|
+        result.push(i.station_id)
+end
+
     end
 
     render json: result

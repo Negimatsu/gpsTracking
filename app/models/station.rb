@@ -4,6 +4,7 @@ class Station < ActiveRecord::Base
   mount_uploader :station_normal_pic, StationPicUploader
 
   has_many :trackings
+  has_one :list_station
 
   def in_station? px,py
     x = [self.x1, self.x2, self.x3, self.x4]
