@@ -16,21 +16,21 @@ class ApplicationController < ActionController::Base
 
     all = Tracking.order(id: :desc)
     all.each do |tracking|
-      if tracking.station_id == number
+      if tracking.station_id == number and not tracking.station_id.nil?
          @p_first = Tracking.where("id <= #{tracking.id}").order(id: :desc)
         break
       end
     end
 
     @p_first.each do |tracking|
-      if tracking.station_id != number
+      if tracking.station_id != number and not tracking.station_id.nil?
         @dec_tracking = Tracking.where("id <= #{tracking.id}").order(id: :desc)
         break
       end
     end
 
     @dec_tracking.each do |tracked|
-      if (tracked.station_id != number) && (not tracked.station_id.nil?)
+      if (tracked.station_id != number) and not tracked.station_id.nil?
         return tracked.station_id
       elsif tracked.station_id.nil?
         return 0
