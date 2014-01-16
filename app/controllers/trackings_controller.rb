@@ -66,17 +66,14 @@ class TrackingsController < ApplicationController
   def next_station
     before_id = before_station
     current_station_id = Tracking.last.station_id
-    p before_id
-    p "xxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
-    p cur_index = (ListStation.find_by_station_id current_station_id).list_number
-    p before_index = before_id != 0 ? (ListStation.find_by_station_id(before_id)).list_number : 1
-    p "yyyy"
-    p before_before_index = before_id != 0 ? (ListStation.find_by_station_id(before_station before_id)).list_number : 1
+    before_id
+    cur_index = (ListStation.find_by_station_id current_station_id).list_number
+    before_index = before_id != 0 ? (ListStation.find_by_station_id(before_id)).list_number : 1
+    before_before_index = before_id != 0 ? (ListStation.find_by_station_id(before_station before_id)).list_number : 1
 
     result = []
     if cur_index < before_before_index
-      result = ListStation.first.station_id
+      result.push(ListStation.first.station_id)
     else
       (ListStation.find_all_by_list_number(cur_index + 1)).each do |i|
         result.push(i.station_id)

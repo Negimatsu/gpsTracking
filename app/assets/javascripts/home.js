@@ -126,6 +126,7 @@ function detectBrowser() {
             disableDoubleClickZoom: true,
             draggable: false,
             panControl: false,
+            scrollwheel: false,
             zoomControl: true
         };
     } else {
@@ -148,7 +149,8 @@ function init() {
         draggable: false,
         panControl: false,
         zoomControl: false,
-        scaleControl: false
+        scaleControl: false,
+        scrollwheel: false
     };
     detectBrowser();
     var mapElement = document.getElementById('map-canvas');

@@ -28,7 +28,7 @@ class StationPicUploader < CarrierWave::Uploader::Base
   #process :scale => [200, 300]
 
   version :thumb do
-    process :resize_to_fill => [20,30]
+    process :resize_to_fill => [35,45]
   end
   #
   #def scale(width, height)
