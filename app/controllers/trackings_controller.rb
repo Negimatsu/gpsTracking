@@ -72,6 +72,10 @@ class TrackingsController < ApplicationController
       before_index = before_id != 0 ? (ListStation.find_by_station_id(before_id)).list_number : 1
       before_before_index = before_id != 0 ? (ListStation.find_by_station_id(before_station before_index)).list_number : 1
       result = []
+      p "###############"
+      p cur_index
+      p before_before_index
+      p before_index
       if cur_index == 1
         result.push(ListStation.find_by_station_id(2).station_id)
 
