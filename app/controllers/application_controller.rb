@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
 
   def before_station number = Tracking.last.station_id
 
-    all = Tracking.order(id: :desc)
+    all = Tracking.all
+    all.reverse!
     all.each do |tracking|
       if tracking.station_id == number and not tracking.station_id.nil?
          @p_first = Tracking.where("id <= #{tracking.id}").order(id: :desc)
