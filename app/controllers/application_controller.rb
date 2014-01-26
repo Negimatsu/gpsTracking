@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
   end
 
   def before_station number = last_tracked.station_id
-
     all = Tracking.all
     all.reverse!
     all.each do |tracking|
@@ -40,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def last_tracked
-    Tracking.find_all_by_station_id(!nil?).last
+    Tracking.where("Trackings.station_id IS NOT NULL").last
   end
 
 
