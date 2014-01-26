@@ -12,33 +12,35 @@ class ApplicationController < ActionController::Base
     request.format.json?
   end
 
-  def before_station number = Tracking.last.station_id
+  def before_station number = last_tracked.station_id
 
     all = Tracking.all
     all.reverse!
     all.each do |tracking|
       if tracking.station_id == number and not tracking.station_id.nil?
          @p_first = Tracking.where("id <= #{tracking.id}").order(id: :desc)
-        break
+
+         @p_first.each do |tracking|
+           if tracking.station_id != number and not tracking.station_id.nil?
+             @dec_tracking = Tracking.where("id <= #{tracking.id}").order(id: :desc)
+
+             @dec_tracking.each do |tracked|
+               if (tracked.station_id != number) and not tracked.station_id.nil?
+                 return tracked.station_id
+               elsif tracked.station_id.nil?
+                 return 0
+               end
+             end
+
+           end
+         end
+
       end
     end
+  end
 
-    @p_first.each do |tracking|
-      if tracking.station_id != number and not tracking.station_id.nil?
-        @dec_tracking = Tracking.where("id <= #{tracking.id}").order(id: :desc)
-        break
-      end
-    end
-
-    @dec_tracking.each do |tracked|
-      if (tracked.station_id != number) and not tracked.station_id.nil?
-        return tracked.station_id
-      elsif tracked.station_id.nil?
-        return 0
-      end
-    end
-
-
+  def last_tracked
+    Tracking.find_all_by_station_id(!nil?).last
   end
 
 

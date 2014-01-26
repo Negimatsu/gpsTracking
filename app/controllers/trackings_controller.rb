@@ -65,33 +65,41 @@ class TrackingsController < ApplicationController
 
   def next_station
     before_id = before_station
-    current_station_id = Tracking.last.station_id
-    before_id
-    cur_index = (ListStation.find_by_station_id current_station_id).list_number
-    before_index = before_id != 0 ? (ListStation.find_by_station_id(before_id)).list_number : 1
-    before_before_index = before_id != 0 ? (ListStation.find_by_station_id(before_station before_id)).list_number : 1
+    current_station_id = last_tracked.station_id
 
-    result = []
-    if cur_index < before_before_index
-      result.push(ListStation.first.station_id)
+    if not current_station_id.nil?
+      cur_index = ((ListStation.find_all_by_station_id current_station_id)).last.list_number
+      before_index = before_id != 0 ? (ListStation.find_by_station_id(before_id)).list_number : 1
+      before_before_index = before_id != 0 ? (ListStation.find_by_station_id(before_station before_index)).list_number : 1
+      result = []
+      if cur_index == 1
+        result.push(ListStation.find_by_station_id(2).station_id)
+
+      elsif cur_index == 2 and cur_index < before_index
+        result.push(ListStation.first.station_id)
+
+      else
+        (ListStation.find_all_by_list_number(cur_index + 1)).each do |i|
+          result.push(i.station_id)
+        end
+
+      end
     else
-      (ListStation.find_all_by_list_number(cur_index + 1)).each do |i|
-        result.push(i.station_id)
-end
 
     end
+
 
     render json: result
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tracking
-      @tracking = Tracking.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tracking
+    @tracking = Tracking.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tracking_params
-      params.require(:tracking).permit(:lat, :long, :car_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tracking_params
+    params.require(:tracking).permit(:lat, :long, :car_id)
+  end
 end
