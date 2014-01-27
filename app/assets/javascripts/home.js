@@ -5,6 +5,66 @@ var marker;
 var currentMarker = null;
 //var map;
 //
+var flag = true
+function setRoute(map){
+    $.ajax({
+        url: "/api/track/show_route",
+
+        success: function(data){
+
+            var current_loc =  new google.maps.LatLng(data.current.lat, data.current.lng);
+            var next_loc =  new google.maps.LatLng(data.next.lat, data.next.lng);
+
+            if(flag){
+                var option = {  suppressMarkers: true,
+                    polylineOptions: {
+                        visible: true,
+                        strokeColor: data.color,
+                        strokeWeight:'10'
+                    }
+                }
+                directionsDisplay = new google.maps.DirectionsRenderer(option);
+                setDisplayCalcRoute(current_loc, next_loc,data.color);
+                directionsDisplay.setMap(map);
+                flag = false;
+            }else{
+
+                setDisplayCalcRoute(current_loc, next_loc,data.color);
+
+            }
+
+        },
+        error: function (){
+            console.trace();
+        }
+    });
+}
+
+function setDisplayCalcRoute(start, end, color) {
+
+    var option = {
+        visible: true,
+        polylineOptions: {
+            strokeColor: color,
+            strokeWeight:'10'
+        }
+    }
+    directionsDisplay.setOptions(option);
+
+    var request = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.WALKING
+    };
+    directionsService.route(request, function(response, status) {
+
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setOptions({ preserveViewport: true });
+            directionsDisplay.setDirections(response);
+        }
+    });
+
+}
 
 function setStationsMarker(map){
 
@@ -12,7 +72,7 @@ function setStationsMarker(map){
         url: "/data/data_stations",
 
         success: function( data ) {
-            console.log(data);
+            console.log(data+"xxx");
             $.each( data, function( index, st ){
                 var myLatLng = new google.maps.LatLng(st.lat, st.lng);
                 var marker = new google.maps.Marker({
@@ -45,11 +105,13 @@ function setIconMarkerStation(current_station, next_station){
                 }
                 else if(next_station.indexOf(station.zIndex) > -1){
                     var image = getImageIcon(data.station_next_pic.thumb.url);
-                    console.log(image);
                 }else{
                     var image = getImageIcon(data.station_normal_pic.thumb.url);
                 }
                 station.setIcon(image);
+            },
+            error: function (){
+                console.trace();
             }
         });
 
@@ -73,7 +135,6 @@ function setCurrentMarker(map){
                     url: "/api/track/next_station",
 
                     success: function(station_next){
-                        console.log("yyy",station_next);
                         setIconMarkerStation(data.station_id, station_next);
                     }
                 });
@@ -99,6 +160,8 @@ function setCurrentMarker(map){
 function recursive_data(map){
     setCurrentMarker(map);
     setInterval(setCurrentMarker, 5000);
+    setRoute(map);
+    setInterval(setRoute, 5000);
 }
 
 function toggleBounce() {
@@ -108,21 +171,6 @@ function toggleBounce() {
     } else {
         marker.setAnimation(google.maps.Animation.BOUNCE);
     }
-}
-
-function calcRoute() {
-    var start = new google.maps.LatLng(13.847107,100.57065);
-    var end =  new google.maps.LatLng(13.849097,100.570607);
-    var request = {
-        origin: start,
-        destination: end,
-        travelMode: google.maps.TravelMode.DRIVING
-    };
-    directionsService.route(request, function(response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
-        }
-    });
 }
 
 function detectBrowser() {
@@ -157,7 +205,6 @@ google.maps.event.addDomListener(window, 'load', init);
 var mapOptions;
 
 function init() {
-    directionsDisplay = new google.maps.DirectionsRenderer();
     mapOptions = {
         center: new google.maps.LatLng(13.847807, 100.573710),
         zoom: 16,
@@ -177,12 +224,9 @@ function init() {
     // Create the Google Map using out element and options defined above
     var map = new google.maps.Map(mapElement, mapOptions);
 
-//    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     setMarker(map);
     google.maps.event.addListener(marker, 'click', toggleBounce);
 
-    directionsDisplay.setMap(map);
-    calcRoute();
 }
 
 function setMarker(map){
@@ -190,7 +234,6 @@ function setMarker(map){
     setCurrentMarker(map);
     recursive_data(map);
     setAllMap(map) ;
-
 }
 
 // Sets the map on all markers in the array.

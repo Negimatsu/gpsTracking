@@ -66,5 +66,29 @@ class ApplicationController < ActionController::Base
     Tracking.where("Trackings.station_id IS NOT NULL").last
   end
 
+  def overtime? time
+    start_time = station_first_track.created_at
+    last_time = Time.now
+    if last_time - start_time >= time*3
+      return 2
+    elsif last_time - start_time >= time*2
+      return 1
+    else
+      return 0
+    end
+  end
+
+
+  private
+  def station_first_track
+    current_station = last_tracked.station_id
+    latest = Tracking.where("Trackings.station_id IS NOT NULL").last(200)
+    latest.reverse!
+    latest.each_with_index do |tracking,i|
+      if latest[i+1].station_id != current_station and not tracking.station_id.nil?
+        return tracking
+      end
+    end
+  end
 
 end

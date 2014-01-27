@@ -20,6 +20,7 @@ GpsTracking::Application.routes.draw do
     scope 'track' do
       resources :trackings
       get "next_station", to: "trackings#next_station"
+      get "show_route", to: "trackings#show_route"
     end
   end
 end

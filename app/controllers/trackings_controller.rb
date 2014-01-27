@@ -68,6 +68,15 @@ class TrackingsController < ApplicationController
     render json: result
   end
 
+  def show_route
+    current_station = Station.find(last_tracked.station_id)
+    next_station = Station.find(next_stations.first)
+    time = ListStation.find_all_by_list_number(current_station).first.next_time
+    result = {"current" => current_station, "next" => next_station, "color" => color_route(overtime?(time)) }
+    render json: result
+
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_tracking
@@ -77,5 +86,15 @@ class TrackingsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def tracking_params
     params.require(:tracking).permit(:lat, :long, :car_id)
+  end
+
+  def color_route number
+    if number == 1
+      return "orange"
+    elsif number == 2
+      return "red"
+    else
+      return "green"
+    end
   end
 end
