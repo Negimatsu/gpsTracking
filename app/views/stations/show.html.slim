@@ -18,19 +18,23 @@ p
 
 
 - if @station.station_normal_pic.thumb.url and @station.station_current_pic.thumb.url and @station.station_next_pic.thumb.url
-  ul.example-orbit data-orbit=""
-    li
-      = image_tag(@station.station_normal_pic.url) if @station.station_normal_pic.thumb.url
-      .orbit-caption Picture normal
-    li
-      = image_tag(@station.station_current_pic.url) if @station.station_current_pic.thumb.url
-      .orbit-caption Picture Current
-    li
-      = image_tag(@station.station_next_pic.url) if @station.station_next_pic.thumb.url
-      .orbit-caption Picture next
+
+  div.orbit-container
+    ul.orbit-slides-container data-orbit=""
+      li
+        = image_tag(@station.station_normal_pic.url) if @station.station_normal_pic.thumb.url
+        .orbit-caption Hello
+      li
+        = image_tag(@station.station_current_pic.url) if @station.station_current_pic.thumb.url
+        .orbit-caption Helloxxasd
+      li
+        = image_tag(@station.station_next_pic.url) if @station.station_next_pic.thumb.url
+        .orbit-caption Helloxx
+
+
 -else
   b Picture
-  | None or not complete
+  | &nbsp; None or not complete
 br
 br
 = link_to 'Edit', edit_station_path(@station)

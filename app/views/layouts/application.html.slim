@@ -23,13 +23,13 @@ html
               span Menu
         section.top-bar-section
           = render 'layouts/navigation'
-    main role="main"
-      .container
-        .content
-          .row
-            = render 'layouts/messages'
-            = yield
-            /.twelve.columns
+    section.main role="main"
 
-          footer
-      = javascript_include_tag "application", "data-turbolinks-track" => true
+      .content
+        .row
+          = render 'layouts/messages'
+          = yield
+    footer
+      .zurb-footer-top.bg-blue
+        | dfasasf
+        = javascript_include_tag "application", "data-turbolinks-track" => true

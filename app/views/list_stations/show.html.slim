@@ -5,7 +5,10 @@ p
   = @list_station.list_number
 p
   b Station:
-  = @list_station.station_id
+  = Station.find(@list_station.station_id).name
+p
+  b Next time:
+  = "#{@list_station.next_time} second"
 
 = link_to 'Edit', edit_list_station_path(@list_station)
 

@@ -17,25 +17,49 @@ class ApplicationController < ActionController::Base
     all.reverse!
     all.each do |tracking|
       if tracking.station_id == number and not tracking.station_id.nil?
-         @p_first = Tracking.where("id <= #{tracking.id}").order(id: :desc)
+        @p_first = Tracking.where("id <= #{tracking.id}").order(id: :desc)
 
-         @p_first.each do |tracking|
-           if tracking.station_id != number and not tracking.station_id.nil?
-             @dec_tracking = Tracking.where("id <= #{tracking.id}").order(id: :desc)
+        @p_first.each do |tracking|
+          if tracking.station_id != number and not tracking.station_id.nil?
+            @dec_tracking = Tracking.where("id <= #{tracking.id}").order(id: :desc)
 
-             @dec_tracking.each do |tracked|
-               if (tracked.station_id != number) and not tracked.station_id.nil?
-                 return tracked.station_id
-               elsif tracked.station_id.nil?
-                 return 0
-               end
-             end
+            @dec_tracking.each do |tracked|
+              if (tracked.station_id != number) and not tracked.station_id.nil?
+                return tracked.station_id
+              elsif tracked.station_id.nil?
+                return 0
+              end
+            end
 
-           end
-         end
+          end
+        end
 
       end
     end
+  end
+
+  def next_stations
+    before_id = before_station
+    current_station_id = last_tracked.station_id
+    result = []
+    if not current_station_id.nil?
+      cur_index = ((ListStation.find_all_by_station_id current_station_id)).last.list_number
+      before_index = before_id != 0 ? (ListStation.find_by_station_id(before_id)).list_number : 1
+      before_before_index = before_id != 0 ? (ListStation.find_by_station_id(before_station before_index)).list_number : 1
+
+      if cur_index == 1
+        result.push(ListStation.find_by_station_id(2).station_id)
+
+      elsif cur_index == 2 and cur_index < before_index
+        result.push(ListStation.first.station_id)
+
+      else
+        (ListStation.find_all_by_list_number(cur_index + 1)).each do |i|
+          result.push(i.station_id)
+        end
+      end
+    end
+    return result
   end
 
   def last_tracked

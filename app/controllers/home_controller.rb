@@ -4,8 +4,12 @@ class HomeController < ApplicationController
 
   def index
     @users = User.all
-    @stations = Station.all
-    @tracking = Tracking.last
+    @tracking = Station.find(last_tracked.station_id)
+    @car = Car.find(last_tracked.car_id)
+    @next_station = Station.find(next_stations)
+    current = ListStation.find_all_by_station_id(last_tracked.station_id).first
+    @time = current.next_time
+
   end
 
   def current_station
@@ -28,6 +32,8 @@ class HomeController < ApplicationController
     data = { :color => color}
     render :json => data
   end
+
+
 
 
   private

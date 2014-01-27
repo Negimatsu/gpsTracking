@@ -4,6 +4,7 @@ table
   tr
     th List number
     th Station
+    th Next station (sec)
     th
     th
     th
@@ -11,7 +12,8 @@ table
   - @list_stations.each do |list_station|
     tr
       td= list_station.list_number
-      td= list_station.station_id
+      td= Station.find(list_station.station_id).name
+      td= list_station.next_time
       td= link_to 'Show', list_station
       td= link_to 'Edit', edit_list_station_path(list_station)
       td= link_to 'Destroy', list_station, :method => :delete, :data => { :confirm => 'Are you sure?' }

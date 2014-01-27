@@ -64,35 +64,7 @@ class TrackingsController < ApplicationController
   end
 
   def next_station
-    before_id = before_station
-    current_station_id = last_tracked.station_id
-
-    if not current_station_id.nil?
-      cur_index = ((ListStation.find_all_by_station_id current_station_id)).last.list_number
-      before_index = before_id != 0 ? (ListStation.find_by_station_id(before_id)).list_number : 1
-      before_before_index = before_id != 0 ? (ListStation.find_by_station_id(before_station before_index)).list_number : 1
-      result = []
-      p "###############"
-      p cur_index
-      p before_before_index
-      p before_index
-      if cur_index == 1
-        result.push(ListStation.find_by_station_id(2).station_id)
-
-      elsif cur_index == 2 and cur_index < before_index
-        result.push(ListStation.first.station_id)
-
-      else
-        (ListStation.find_all_by_list_number(cur_index + 1)).each do |i|
-          result.push(i.station_id)
-        end
-
-      end
-    else
-
-    end
-
-
+    result = next_stations
     render json: result
   end
 

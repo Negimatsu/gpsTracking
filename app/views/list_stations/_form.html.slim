@@ -1,9 +1,10 @@
 = simple_form_for(@list_station) do |f|
   = f.error_notification
 
-  .form-inputs
+  .form-inputs data-abide=""
     = f.input :list_number
     = f.association :station
+    = f.input :next_time, hint: '30', label: 'Next time (second)'
 
   .form-actions
     = f.button :submit

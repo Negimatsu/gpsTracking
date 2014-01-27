@@ -130,8 +130,8 @@ function detectBrowser() {
             zoomControl: true
         };
     } else {
-        mapdiv.style.width = '100%';
-        mapdiv.style.height = '100%';
+        mapdiv.style.width = '110%';
+        mapdiv.style.height = '80%';
     }
 }
 

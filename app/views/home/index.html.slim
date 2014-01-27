@@ -1,17 +1,24 @@
-/= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyB5OXjn4qzTznCTP0L4nakhtDSD4xO-uj0&sensor=true"
 = javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyB5OXjn4qzTznCTP0L4nakhtDSD4xO-uj0&sensor=true&v=3 "
 = javascript_include_tag "home"
 
 h3 Home
-/= image_tag get_maps_all
 
-/- @stations.each do |s|
-/   /p #{s.in_station? s.lat, s.lng}
-/   p = s.in_station? @tracking.lat, @tracking.long
-row
+.large-9.columns
+  #map-canvas.map-google
+.large-3.push-3.columns
+  ul.pricing-table
+    li.title Current Station
+    li.price
+      = @tracking.name
+    - if not @time.nil?
+      li.bullet-item
+        =Time.at(@time).utc.strftime("%M:%S min") if not @time.nil?
+    li.bullet-item to
+    - @next_station.each do |station|
+      li.bullet-item
+        = station.name
+    li.description
+      = "Car number #{@car.plate} : #{@car.car_style.seat} seat"
 
-  #map-canvas.small-6.large-centered.columns
-/
-/= render :partial => 'home/maps', :locals => { :stations => @stations }
 
-#test
+
