@@ -28,9 +28,7 @@ function setRoute(map){
                 directionsDisplay.setMap(map);
                 flag = false;
             }else{
-
                 setDisplayCalcRoute(current_loc, next_loc,data.color);
-
             }
 
         },

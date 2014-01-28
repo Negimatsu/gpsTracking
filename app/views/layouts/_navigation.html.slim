@@ -19,6 +19,8 @@ ul.nav.right
           li
             = link_to 'Order Station', list_stations_path
       li
+        = link_to 'Traffic jam', traffic_jams_path
+      li
         = link_to 'Logout', destroy_user_session_path, :method=>'delete'
   - else
 

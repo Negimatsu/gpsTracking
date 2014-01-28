@@ -1,0 +1,12 @@
+p#notice= notice
+
+p
+  b Current station:
+  = @traffic_jam.station.name
+p
+  b Level:
+  = @traffic_jam.level
+
+= link_to 'Edit', edit_traffic_jam_path(@traffic_jam)
+
+= link_to 'Back', traffic_jams_path

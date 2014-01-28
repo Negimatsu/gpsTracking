@@ -5,6 +5,7 @@ class Station < ActiveRecord::Base
 
   has_many :trackings
   has_one :list_station
+  has_many :traffic_jams
 
   def in_station? px,py
     x = [self.x1, self.x2, self.x3, self.x4]

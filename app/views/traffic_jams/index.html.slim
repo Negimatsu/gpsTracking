@@ -1,0 +1,16 @@
+h1 Listing traffic jams
+
+table
+  tr
+    th Current station
+    th Next station
+    th Level
+    th Time
+    th
+
+  - @traffic_jams.each do |traffic_jam|
+    tr
+      td= traffic_jam.station.name
+      td= Station.find(traffic_jam.station.nextStation).name
+      td= traffic_jam.level
+      td= traffic_jam.created_at.strftime('%e-%b-%y %H:%M:%S')

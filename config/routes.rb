@@ -1,5 +1,7 @@
 GpsTracking::Application.routes.draw do
 
+  resources :traffic_jams
+
   get "stations/map/:id", to: "stations#show_maps", as: "maps_station"
   get "data/data_stations" => "home#data_stations"
   get "data/data_current", to: "home#current_station", as:"current"
@@ -7,8 +9,8 @@ GpsTracking::Application.routes.draw do
 
   get "stations/json/:id", to: "stations#show_json", as: "stations_json"
 
+  resources :traffic_jams
   resources :list_stations
-  #resources :locations
   resources :stations
   resources :car_styles
   resources :cars

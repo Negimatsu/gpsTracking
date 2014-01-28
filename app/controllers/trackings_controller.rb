@@ -30,6 +30,7 @@ class TrackingsController < ApplicationController
 
     respond_to do |format|
       if @tracking.save
+        add_traffic_jam
         format.html { redirect_to @tracking, notice: 'Tracking was successfully created.' }
         format.json { render action: 'show', status: :created, location: @tracking }
       else
@@ -37,6 +38,27 @@ class TrackingsController < ApplicationController
         format.json { render json: @tracking.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def add_traffic_jam
+    current_station = Station.find(last_tracked.station_id)
+    time = ListStation.find_all_by_list_number(current_station).first.next_time
+    level = overtime? time
+    if level == 1
+      traffic = TrafficJam.create(:station_id => current_station.id, level: overtime?(time) )
+      traffic.save! if traffic.valid?
+    elsif level == 2 and current_station == Tracking.last.station
+      last = TrafficJam.last
+      if last.station != current_station
+        traffic = TrafficJam.create(:station_id => current_station.id, level: overtime?(time) )
+        traffic.save
+      else
+        last.update(level: 2)
+        last.save
+      end
+    end
+
+
   end
 
   # PATCH/PUT /trackings/1

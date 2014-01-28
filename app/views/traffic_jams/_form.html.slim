@@ -1,0 +1,9 @@
+= simple_form_for(@traffic_jam) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :station
+    = f.input :level
+
+  .form-actions
+    = f.button :submit
