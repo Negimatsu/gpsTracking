@@ -18,7 +18,7 @@ class HomeController < ApplicationController
   end
 
   def current_station
-    @tracking = Tracking.last
+    @tracking = last_tracked
     render :json => @tracking
   end
 

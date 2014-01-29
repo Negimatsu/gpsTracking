@@ -3,8 +3,8 @@ h1 Listing stations
 table
   tr
     th Name
-    th Lat
-    th Lng
+    th Latitude
+    th Longitude
     th Station
     th Nextstation
     th Point
@@ -23,7 +23,7 @@ table
       td(rowspan="2")= station.lng
       td(rowspan="2")= station.station
       td(rowspan="2")= station.nextStation
-      td x
+      td Lat
       td= station.x1
       td= station.x2
       td= station.x3
@@ -34,7 +34,7 @@ table
       td(rowspan="2")= link_to 'Edit', edit_station_path(station)
       td(rowspan="2")= link_to 'Destroy', station, :method => :delete, :data => { :confirm => 'Are you sure?' }
     tr
-      td y
+      td Long
       td= station.y1
       td= station.y2
       td= station.y3

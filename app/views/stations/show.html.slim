@@ -19,16 +19,16 @@ p
 
 - if @station.station_normal_pic.thumb.url and @station.station_current_pic.thumb.url and @station.station_next_pic.thumb.url
 
-  div.orbit-container
-    ul.orbit-slides-container data-orbit=""
+  div
+    ul
       li
-        = image_tag(@station.station_normal_pic.url) if @station.station_normal_pic.thumb.url
+        = image_tag(@station.station_normal_pic.thumb.url) if @station.station_normal_pic.thumb.url
         .orbit-caption Hello
       li
-        = image_tag(@station.station_current_pic.url) if @station.station_current_pic.thumb.url
+        = image_tag(@station.station_current_pic.thumb.url) if @station.station_current_pic.thumb.url
         .orbit-caption Helloxxasd
       li
-        = image_tag(@station.station_next_pic.url) if @station.station_next_pic.thumb.url
+        = image_tag(@station.station_next_pic.thumb.url) if @station.station_next_pic.thumb.url
         .orbit-caption Helloxx
 
 

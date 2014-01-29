@@ -160,7 +160,6 @@ function setCurrentMarker(map){
                     map: map,
                     position: myLatLng,
                     title: "current",
-                    visible: false,
                     animation: google.maps.Animation.DROP
                 });
                 currentMarker.setMap(map);
