@@ -6,6 +6,20 @@ var currentMarker = null;
 //var map;
 //
 var flag = true
+
+$(document).ready(function () {
+    $("#station_station_id").change(function () {
+        var selected = $("#station_station_id").val();
+        $.ajax({
+            url: "/api/track/current_select/"+selected,
+            success: function (time) {
+                $('#time').text(Math.floor(time/60) + " : " + time%60 + " นาที");
+            }
+        });
+    });
+});
+
+
 function setRoute(map){
     $.ajax({
         url: "/api/track/show_route",
@@ -20,7 +34,7 @@ function setRoute(map){
                     polylineOptions: {
                         visible: true,
                         strokeColor: data.color,
-                        strokeWeight:'10'
+                        strokeWeight:'5'
                     }
                 }
                 directionsDisplay = new google.maps.DirectionsRenderer(option);
@@ -29,6 +43,9 @@ function setRoute(map){
                 flag = false;
             }else{
                 setDisplayCalcRoute(current_loc, next_loc,data.color);
+                $("#name").text(data.current.name);
+                $('#next_station').text(data.next.name);
+                $('#time').text(Math.floor(data.time/60) + " : " + data.time%60 + " นาที");
             }
 
         },
@@ -44,7 +61,7 @@ function setDisplayCalcRoute(start, end, color) {
         visible: true,
         polylineOptions: {
             strokeColor: color,
-            strokeWeight:'10'
+            strokeWeight:'5'
         }
     }
     directionsDisplay.setOptions(option);
@@ -229,7 +246,7 @@ function init() {
 
 function setMarker(map){
     setStationsMarker(map)
-    setCurrentMarker(map);
+   // setCurrentMarker(map);
     recursive_data(map);
     setAllMap(map) ;
 }
@@ -252,7 +269,7 @@ function getImageIcon(url){
     }else{
         var image = {
             url: url,
-            size: new google.maps.Size(20, 32),
+            size: new google.maps.Size(35,48),
             origin: new google.maps.Point(0,0),
             anchor: new google.maps.Point(0, 32)
         }

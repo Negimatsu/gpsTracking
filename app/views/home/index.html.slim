@@ -5,20 +5,29 @@ h3 Home
 
 .large-9.columns
   #map-canvas.map-google
+
 .large-3.push-3.columns
   ul.pricing-table
-    li.title Current Station
-    li.price
+    li.title สถานี ปัจจุบัน
+    li.price#name
       = @tracking.name
     - if not @time.nil?
-      li.bullet-item
-        =Time.at(@time).utc.strftime("%M:%S min") if not @time.nil?
+      li.bullet-item#time
+        =Time.at(@time).utc.strftime("%k : %S นาที") if not @time.nil?
     li.bullet-item to
+    - next_station = ""
     - @next_station.each do |station|
-      li.bullet-item
-        = station.name
-    li.description
-      = "Car number #{@car.plate} : #{@car.car_style.seat} seat"
+      -next_station = "#{next_station} #{station.name}"
+    li.bullet-item#next_station
+      = next_station
+    li.bullet-item
+      = select "station", "station_id", @all_station
 
-
-
+  ul.pricing-table
+    li.title รายละเอีดยด
+    li.price
+      span.label.success.round ปกติ
+    li.price
+      span.label.orange.round รถติด
+    li.price
+      span.label.alert.round รถติดมาก

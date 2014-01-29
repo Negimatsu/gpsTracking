@@ -94,7 +94,7 @@ class TrackingsController < ApplicationController
     current_station = Station.find(last_tracked.station_id)
     next_station = Station.find(next_stations.first)
     time = ListStation.find_all_by_list_number(current_station).first.next_time
-    result = {"current" => current_station, "next" => next_station, "color" => color_route(overtime?(time)) }
+    result = {"current" => current_station, "next" => next_station, "color" => color_route(overtime?(time)), "time" => time }
     render json: result
 
   end

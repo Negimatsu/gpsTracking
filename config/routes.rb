@@ -23,6 +23,7 @@ GpsTracking::Application.routes.draw do
       resources :trackings
       get "next_station", to: "trackings#next_station"
       get "show_route", to: "trackings#show_route"
+      get "current_select/:id", to: "home#total_time_current_to_select"
     end
   end
 end
