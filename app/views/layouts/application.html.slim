@@ -29,7 +29,15 @@ html
         .row
           = render 'layouts/messages'
           = yield
+
     footer
       .zurb-footer-top.bg-blue
-        | dfasasf
-        = javascript_include_tag "application", "data-turbolinks-track" => true
+        .row.property
+          h5.small-6.columns.font-footer
+            | Improving Tools for GPS Tracking Project<br>
+              Field Of Study  Survey Engineering and Geographic Information<br>
+          h4.small-6.columns.font-footer.line
+            | Faculty Of Engineering<br>
+              KASETSART UNIVERSITY<br>
+
+          = javascript_include_tag "application", "data-turbolinks-track" => true
